@@ -1,0 +1,28 @@
+{
+  "name": "trash-talk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Weka2015-Projects/trash-talk.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Weka2015-Projects/trash-talk/issues"
+  },
+  "homepage": "https://github.com/Weka2015-Projects/trash-talk#readme",
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4",
+    "ramda": "^0.18.0",
+    "socket.io": "^1.3.7"
+  }
+}
