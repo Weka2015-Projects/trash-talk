@@ -27,13 +27,13 @@ describe('User creation test', () => {
 describe('deletes user object', () => {
   beforeEach(() => {overWriteDb('empty') })
   context('deletes if user object exsists', () => {
-    xit('does not add second object', () => {
+    it('does not add second object', () => {
       userFunctions.deleteUser('bean')
       expect(storage.read().users.length).to.equal(0)
     })
   })
   context('does not delete if it user object exsists', () => {
-    xit('stays the same', () => {
+    it('stays the same', () => {
       userFunctions.deleteUser('bobo')
       expect(storage.read().users.length).to.equal(1)
     })
@@ -44,12 +44,14 @@ describe('get user by username', () => {
   beforeEach(() => {overWriteDb('empty') })
   context('find user if username exsists', () => {
     xit('finds user', () => {
-      userFunctions.getUserByUserName('')
+      userFunctions.getUserByUserName('bobo')
+      expect(storage.read().users.length).to.equal(1)
     })
   })
   context('return undefined if user does not exsist', () => {
-    xit('returns undefined', () => {
-
+    xit('returns undefined if user does not exsist', () => {
+        userfunctions.getUserByUserName('wakaflocka')
+        expect(storage.read().users.length).to.equal(0)
     })
   })
 })
@@ -57,11 +59,16 @@ describe('get user by username', () => {
 describe('patch object if exsists', () => {
   beforeEach(() => {overWriteDb('empty') })
   context('change object if a valid change', () => {
-    xit('object changed', () => {
+    xit('object changed if object exsists', () => {
+      userFunctions.changeUserName('bobo')
+      userFunctions.changeUserName('babe')
+      expect(storage.read().users.length).to.equal(1)
       })
     })
     context('does not change if object does not exsist', () => {
-      xit('returns undefined', () => {
+      xit('returns undefined if object does not exsist', () => {
+        userFunctions.changeUserName('bambie')
+        expect(storage.read().users.length).to.equal(0)
     })
   })
 })
