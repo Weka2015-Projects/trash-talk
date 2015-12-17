@@ -23,9 +23,13 @@
     "chai": "^3.4.1",
     "color": "^0.10.1",
     "colors": "^1.1.2",
+    "emoji-and-emoticons": "0.0.5",
     "mocha": "^2.3.4",
     "ramda": "^0.18.0",
     "socket.io": "^1.3.7",
     "socket.io-client": "^1.3.7"
+  },
+  "dependencies": {
+    "inquirer": "^0.11.0"
   }
 }
