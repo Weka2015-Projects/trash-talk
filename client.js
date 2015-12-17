@@ -38,17 +38,9 @@ const startChatInput = () => {
   })
 }
 
-<<<<<<< HEAD
-socket.on('message', (data) => {
-  if(R.last(myLastMessages) === data) {return}
-  console.log(data)
-})
-=======
 const parseCommand = (command) => {
 
 }
-
->>>>>>> 4b176e122c812186641d452d1b36f88ffa8350e2
 
 const introQuestion = {
  validate: function(input) {
