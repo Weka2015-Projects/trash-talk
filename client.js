@@ -4,23 +4,34 @@ const socket = io.connect('http://192.168.1.49:3000')
 const R = require('ramda')
 const inquirer = require('inquirer')
 
-
+var userName
 const myLastMessages = []
 
 socket.on('connect', () => {
-  // inquirer.prompt([introQuestion], (answers) => {
-  //   socket.emit('newuser', answers)
-  // })
-  socket.on('message', (data) => {
-    if(R.last(myLastMessages) === data {return})
-    console.log(data)
+  inquirer.prompt([introQuestion], (answers) => {
+    socket.emit('newuser', answers)
+    userName = answers.username
+    if (userName) {
+      startChatInput()
+    }
   })
+})
+
+
+const startChatInput = () => {
   process.stdin.resume()
   process.stdin.setEncoding('utf8')
-
   process.stdin.on('data', (text) => {
+    text = R.replace(/\n/, '', text)
+    text = `${userName}: ${text}`
+    myLastMessages.push(text)
     socket.emit('message', text)
   })
+}
+
+socket.on('message', (data) => {
+  if(R.last(myLastMessages) === data) {return}
+  console.log(data)
 })
 
 const introQuestion = {
@@ -38,30 +49,8 @@ const introQuestion = {
       }
       // Pass the return value in the done callback
       done(true);
-    }, 3000)
+    }, 10)
   },
-  message: 'Whats your user name \n',
+  message: 'Whats your user name? \n',
   name: 'username'
 }
-
-const newQuestion = (message) => {
-  return {
-  validate: function(input) {
-
-    // Declare function as asynchronous, and save the done callback
-    var done = this.async();
-
-    // Do async stuff
-    setTimeout(function() {
-      if (typeof input !== "string") {
-        // Pass the return value in the done callback
-        done("You need to provide a number");
-        return;
-      }
-      // Pass the return value in the done callback
-      done(true);
-    }, 3000)
-  },
-  message: message.username + '\n',
-  name: 'chat'
-}}

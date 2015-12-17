@@ -43,24 +43,25 @@ describe('deletes user object', () => {
 describe('get user by username', () => {
   beforeEach(() => {overWriteDb('empty') })
   context('find user if username exsists', () => {
-    xit('', () => {
+    xit('finds user', () => {
+      userFunctions.getUserByUserName('')
     })
   })
   context('return undefined if user does not exsist', () => {
-    xit('', () => {
+    xit('returns undefined', () => {
+
     })
   })
 })
 
-describe('', () => {
+describe('patch object if exsists', () => {
   beforeEach(() => {overWriteDb('empty') })
-  context('', () => {
-    xit('', () => {
-
+  context('change object if a valid change', () => {
+    xit('object changed', () => {
       })
     })
-    context('', () => {
-      xit('', () => {
+    context('does not change if object does not exsist', () => {
+      xit('returns undefined', () => {
     })
   })
 })
