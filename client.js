@@ -8,27 +8,31 @@ var userName
 const myLastMessages = []
 
 socket.on('connect', () => {
-
-  // inquirer.prompt([introQuestion], (answers) => {
-  //   socket.emit('newuser', answers)
-  //   userName = answers.username
-  // })
-
-  process.stdin.resume()
-
+  inquirer.prompt([introQuestion], (answers) => {
+    socket.emit('newuser', answers)
+    userName = answers.username
+    if (userName) {
+      startChatInput()
+    }
+  })
   socket.on('message', (data) => {
     if(R.last(myLastMessages) === data) { return }
     console.log(data)
   })
-  process.stdin.setEncoding('utf8')
+})
 
+
+const startChatInput = () => {
+  process.stdin.resume()
+  process.stdin.setEncoding('utf8')
   process.stdin.on('data', (text) => {
     text = R.replace(/\n/, '', text)
     text = `${userName}: ${text}`
     myLastMessages.push(text)
     socket.emit('message', text)
   })
-})
+}
+
 
 const introQuestion = {
  validate: function(input) {
@@ -45,8 +49,8 @@ const introQuestion = {
       }
       // Pass the return value in the done callback
       done(true);
-    }, 3000)
+    }, 10)
   },
-  message: 'Whats your user name \n',
+  message: 'Whats your user name? \n',
   name: 'username'
 }
