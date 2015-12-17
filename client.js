@@ -53,13 +53,8 @@ const introQuestion = {
     setTimeout(function() {
       if (typeof input !== "string") {
         // Pass the return value in the done callback
-<<<<<<< HEAD
-        done("You need to provide a number")
-        return
-=======
         done("Provide a string dude!");
         return;
->>>>>>> 4b176e122c812186641d452d1b36f88ffa8350e2
       }
       // Pass the return value in the done callback
       done(true);
