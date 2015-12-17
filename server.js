@@ -2,10 +2,7 @@
 const R = require('ramda')
 const colors = require('colors')
 const emoji = require('emoji-and-emoticons')
-const fs = requre('fs')
 const users = require('./lib/users')
-
-
 const server = require('http').createServer()
 const io = require('socket.io')(server)
 
@@ -19,7 +16,7 @@ io.on('connection', (socket) => {
   console.log('connection from '.green + userAddress.yellow)
 
 
-  socket.on('adduser', (data) => {
+  socket.on('newuser', (data) => {
     users.addUser(data)
   })
 

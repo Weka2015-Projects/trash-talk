@@ -10,7 +10,6 @@ const myLastMessages = []
 socket.on('connect', () => {
   inquirer.prompt([introQuestion], (answers) => {
     socket.emit('newuser', answers)
-    myLastMessages.push(answers)
   })
   socket.on('message', (data) => {
     if (data !== R.last(myLastMessages)){
