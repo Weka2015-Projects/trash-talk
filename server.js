@@ -19,9 +19,8 @@ io.on('connection', (socket) => {
   socket.on('newuser', (data) => {
     users.addUser(data)
   })
-
   socket.on('message', (data) => {
-    broadcast('message', data);
+    broadcast('message', data)
   })
   socket.on('disconnect', () => {
     console.log(userAddress + ' disconnected'.red)
