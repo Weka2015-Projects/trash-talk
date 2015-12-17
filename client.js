@@ -4,6 +4,7 @@ const socket = io.connect('http://localhost:3000')
 const R = require('ramda')
 const inquirer = require('inquirer')
 
+
 var userName
 const myLastMessages = []
 
@@ -15,22 +16,30 @@ socket.on('connect', () => {
       startChatInput()
     }
   })
-  socket.on('message', (data) => {
-    if(R.last(myLastMessages) === data) { return }
-    console.log(data)
-  })
 })
 
 
 const startChatInput = () => {
+  socket.on('message', (data) => {
+    if(R.last(myLastMessages) === data) { return }
+    console.log(data)
+  })
   process.stdin.resume()
   process.stdin.setEncoding('utf8')
   process.stdin.on('data', (text) => {
+  if (text.split('')[0] === '/') {
+    parseCommand(text)
+  } else {
     text = R.replace(/\n/, '', text)
     text = `${userName}: ${text}`
     myLastMessages.push(text)
     socket.emit('message', text)
+  }
   })
+}
+
+const parseCommand = (command) => {
+
 }
 
 
@@ -44,7 +53,7 @@ const introQuestion = {
     setTimeout(function() {
       if (typeof input !== "string") {
         // Pass the return value in the done callback
-        done("You need to provide a number");
+        done("Provide a string dude!");
         return;
       }
       // Pass the return value in the done callback
