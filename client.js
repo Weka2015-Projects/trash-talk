@@ -23,20 +23,20 @@ socket.on('connect', () => {
 })
 
 const introQuestion = {
- validate: function(input) {
+  validate: function(input) {
 
     // Declare function as asynchronous, and save the done callback
-    var done = this.async();
+    var done = this.async()
 
     // Do async stuff
     setTimeout(function() {
       if (typeof input !== "string") {
         // Pass the return value in the done callback
-        done("You need to provide a number");
-        return;
+        done("You need to provide a number")
+        return
       }
       // Pass the return value in the done callback
-      done(true);
+      done(true)
     }, 3000)
   },
   message: 'Whats your user name \n',
@@ -48,17 +48,17 @@ const newQuestion = (message) => {
   validate: function(input) {
 
     // Declare function as asynchronous, and save the done callback
-    var done = this.async();
+    var done = this.async()
 
     // Do async stuff
     setTimeout(function() {
       if (typeof input !== "string") {
         // Pass the return value in the done callback
-        done("You need to provide a number");
-        return;
+        done("You need to provide a number")
+        return
       }
       // Pass the return value in the done callback
-      done(true);
+      done(true)
     }, 3000)
   },
   message: message.username + '\n',
