@@ -13,17 +13,20 @@ const sockets = []
 io.on('connection', (socket) => {
   sockets.push(socket)
   const userAddress = R.replace(/\:\:[a-z]+\:/g, '', socket.handshake.address)
-  console.log(userAddress + ' connected'.green)
 
+  var currentUser
 
   socket.on('newuser', (data) => {
     users.addUser(data)
+    currentUser = data.username
+    broadcast('message', currentUser +' connected'.green)
   })
   socket.on('message', (data) => {
     broadcast('message', data)
   })
   socket.on('disconnect', () => {
-    console.log(userAddress + ' disconnected'.red)
+    broadcast('message', currentUser +' disconnected'.red)
+    console.log(currentUser + ' disconnected'.red)
   })
 })
 
@@ -33,9 +36,6 @@ const broadcast = (event, data) => {
   })
 }
 
-const challengeUser = (event, data) => {
-  
-}
 
 server.listen(3000)
 console.log('server listening on port 3000')
