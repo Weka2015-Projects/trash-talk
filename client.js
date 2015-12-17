@@ -8,18 +8,18 @@ const inquirer = require('inquirer')
 const myLastMessages = []
 
 socket.on('connect', () => {
-  inquirer.prompt([introQuestion], (answers) => {
-    socket.emit('newuser', answers)
-    myLastMessages.push(answers)
-  })
+  // inquirer.prompt([introQuestion], (answers) => {
+  //   socket.emit('newuser', answers)
+  // })
   socket.on('message', (data) => {
-    if (data !== R.last(myLastMessages)){
     console.log(data)
-    inquirer.prompt([newQuestion(data)], (answers) => {
-      socket.emit('message', answers)
-      myLastMessages.push(answers)
   })
-  }})
+  process.stdin.resume()
+  process.stdin.setEncoding('utf8')
+
+  process.stdin.on('data', (text) => {
+    socket.emit('message', text)
+  })
 })
 
 const introQuestion = {

@@ -2,10 +2,7 @@
 const R = require('ramda')
 const colors = require('colors')
 const emoji = require('emoji-and-emoticons')
-const fs = requre('fs')
 const users = require('./lib/users')
-
-
 const server = require('http').createServer()
 const io = require('socket.io')(server)
 
@@ -16,10 +13,10 @@ const sockets = []
 io.on('connection', (socket) => {
   sockets.push(socket)
   const userAddress = R.replace(/\:\:[a-z]+\:/g, '', socket.handshake.address)
-  console.log('connection from '.green + userAddress.yellow)
+  console.log(userAddress + ' connected'.green)
 
 
-  socket.on('adduser', (data) => {
+  socket.on('newuser', (data) => {
     users.addUser(data)
   })
 
@@ -27,7 +24,7 @@ io.on('connection', (socket) => {
     broadcast('message', data);
   })
   socket.on('disconnect', () => {
-    console.log(userAddress.yellow + ' disconnected'.red)
+    console.log(userAddress + ' disconnected'.red)
   })
 })
 
@@ -38,3 +35,4 @@ const broadcast = (event, data) => {
 }
 
 server.listen(3000)
+console.log('server listening on port 3000')
