@@ -9,7 +9,7 @@ const myLastMessages = []
 
 socket.on('connect', () => {
   inquirer.prompt([introQuestion], (answers) => {
-    socket.emit('message', answers)
+    socket.emit('newuser', answers)
     myLastMessages.push(answers)
   })
   socket.on('message', (data) => {
