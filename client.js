@@ -12,16 +12,17 @@ socket.on('connect', () => {
     socket.emit('newuser', answers)
     userName = answers.username
     if (userName) {
-      startChat()
+      startChatInput()
     }
   })
-})
-
-const startChat = () => {
   socket.on('message', (data) => {
     if(R.last(myLastMessages) === data) { return }
     console.log(data)
   })
+})
+
+
+const startChatInput = () => {
   process.stdin.resume()
   process.stdin.setEncoding('utf8')
   process.stdin.on('data', (text) => {
