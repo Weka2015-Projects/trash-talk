@@ -1,6 +1,6 @@
 'use strict'
 const io = require('socket.io-client')
-const socket = io.connect('http://localhost:3000')
+const socket = io.connect('http://192.168.1.49:3000/')
 const R = require('ramda')
 const inquirer = require('inquirer')
 
@@ -44,10 +44,10 @@ const parseCommand = (command) => {
 
 
 const introQuestion = {
- validate: function(input) {
+  validate: function(input) {
 
     // Declare function as asynchronous, and save the done callback
-    var done = this.async();
+    var done = this.async()
 
     // Do async stuff
     setTimeout(function() {

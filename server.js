@@ -21,7 +21,6 @@ io.on('connection', (socket) => {
     currentUser = data.username
     broadcast('message', currentUser +' connected'.green)
   })
-
   socket.on('message', (data) => {
     broadcast('message', data)
   })
