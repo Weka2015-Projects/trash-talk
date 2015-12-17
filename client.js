@@ -15,14 +15,14 @@ socket.on('connect', () => {
       startChatInput()
     }
   })
-  socket.on('message', (data) => {
-    if(R.last(myLastMessages) === data) { return }
-    console.log(data)
-  })
 })
 
 
 const startChatInput = () => {
+  socket.on('message', (data) => {
+    if(R.last(myLastMessages) === data) { return }
+    console.log(data)
+  })
   process.stdin.resume()
   process.stdin.setEncoding('utf8')
   process.stdin.on('data', (text) => {
