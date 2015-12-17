@@ -27,13 +27,13 @@ describe('User creation test', () => {
 describe('deletes user object', () => {
   beforeEach(() => {overWriteDb('empty') })
   context('deletes if user object exsists', () => {
-    it('does not add second object', () => {
+    xit('does not add second object', () => {
       userFunctions.deleteUser('bean')
       expect(storage.read().users.length).to.equal(0)
     })
   })
   context('does not delete if it user object exsists', () => {
-    it('stays the same', () => {
+    xit('stays the same', () => {
       userFunctions.deleteUser('bobo')
       expect(storage.read().users.length).to.equal(1)
     })
