@@ -1,6 +1,6 @@
 'use strict'
 const io = require('socket.io-client')
-const socket = io.connect('http://192.168.1.49:3000/')
+const socket = io.connect('http://192.168.1.49:3000')
 const R = require('ramda')
 const inquirer = require('inquirer')
 const chatCommands = require('./lib/chatCommands').chatCommands

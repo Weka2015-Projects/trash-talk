@@ -41,34 +41,31 @@ describe('deletes user object', () => {
 })
 
 describe('get user by username', () => {
-  beforeEach(() => {overWriteDb('empty') })
+  beforeEach(() => {overWriteDb('bobo') })
   context('find user if username exsists', () => {
-    xit('finds user', () => {
-      userFunctions.getUserByUserName('bobo')
-      expect(storage.read().users.length).to.equal(1)
+    it('finds user', () => {
+      userFunctions.getUserByUserName('aaron')
+      expect(storage.read().users[1].username).to.equal('aaron')
     })
   })
   context('return undefined if user does not exsist', () => {
-    xit('returns undefined if user does not exsist', () => {
-        userfunctions.getUserByUserName('wakaflocka')
-        expect(storage.read().users.length).to.equal(0)
+    it('returns undefined if user does not exsist', () => {
+        expect(userFunctions.getUserByUserName('wakaflocka')).to.equal(undefined)
     })
   })
 })
 
-describe('patch object if exsists', () => {
-  beforeEach(() => {overWriteDb('empty') })
-  context('change object if a valid change', () => {
-    xit('object changed if object exsists', () => {
-      userFunctions.changeUserName('bobo')
-      userFunctions.changeUserName('babe')
-      expect(storage.read().users.length).to.equal(1)
+describe('patch object', () => {
+  beforeEach(() => {overWriteDb('bobo') })
+  context('change object if username exists', () => {
+    it('object changed if object exists', () => {
+      userFunctions.changeUserName('bobo', 'babe')
+      expect(storage.read().users[0].username).to.equal('babe')
       })
     })
-    context('does not change if object does not exsist', () => {
-      xit('returns undefined if object does not exsist', () => {
-        userFunctions.changeUserName('bambie')
-        expect(storage.read().users.length).to.equal(0)
+    context('does not change if object does not exist', () => {
+      it('returns undefined if object does not exist', () => {
+        expect(userFunctions.changeUserName('bambie')).to.equal(undefined)
     })
   })
 })
