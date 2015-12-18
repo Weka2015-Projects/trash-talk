@@ -48,7 +48,7 @@ const parseCommand = (command) => {
 }
 
 const findCommand = (command) => {
-  if (command[0] === 'listCommands') {
+  if (command[0] === 'help') {
     R.forEach(printDescription , R.keys(chatCommands))
   } else if (command[0] === 'changeColor') {
     textColor = chatCommands[command[0]].action(command[1])
