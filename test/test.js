@@ -69,3 +69,12 @@ describe('patch object', () => {
     })
   })
 })
+
+describe('find all users', () => {
+  beforeEach(() => {overWriteDb('bobo') })
+  context('find all users that exsist', () => {
+    it('finds them all', () => {
+      expect(userFunctions.getAllUsers().length).to.equal(3)
+    })
+  })
+})
