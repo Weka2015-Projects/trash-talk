@@ -4,9 +4,12 @@ const socket = io.connect('http://192.168.1.49:3000')
 const R = require('ramda')
 const inquirer = require('inquirer')
 const chatCommands = require('./lib/chatCommands').chatCommands
+const colors = require('colors')
 
 var userName
+var textColor = 'white'
 const myLastMessages = []
+
 
 socket.on('connect', () => {
   inquirer.prompt([introQuestion], (answers) => {
@@ -33,7 +36,7 @@ const startChatInput = () => {
     text = R.replace(/\n/, '', text)
     text = `${userName}: ${text}`
     myLastMessages.push(text)
-    socket.emit('message', text)
+    socket.emit('message', colors[textColor](text))
   }
   })
 }
@@ -45,15 +48,19 @@ const parseCommand = (command) => {
 }
 
 const findCommand = (command) => {
-  if (command === 'listCommands') {
-    console.log(R.keys(chatCommands))
+  if (command[0] === 'listCommands') {
+    R.forEach(printDescription , R.keys(chatCommands))
+  } else if (command[0] === 'changeColor') {
+    textColor = chatCommands[command[0]].action(command[1])
   }
   else {
-    const commands = command.split(' ')
-    console.log(chatCommands[commands[0]]())
+    console.log(chatCommands[command[0]].action(command[1]))
   }
 }
 
+const printDescription = (key) => {
+  console.log(key.green, chatCommands[key].description)
+}
 
 const introQuestion = {
   validate: function(input) {
