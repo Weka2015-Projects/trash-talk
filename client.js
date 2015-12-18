@@ -1,6 +1,7 @@
 'use strict'
 const io = require('socket.io-client')
 const socket = io.connect('http://192.168.1.49:3000')
+const socket = io.connect('http://192.168.1.49:3000/')
 const R = require('ramda')
 const inquirer = require('inquirer')
 
@@ -38,23 +39,20 @@ const startChatInput = () => {
   })
 }
 
-<<<<<<< HEAD
 socket.on('message', (data) => {
   if(R.last(myLastMessages) === data) {return}
   console.log(data)
 })
-=======
+
 const parseCommand = (command) => {
 
 }
 
->>>>>>> 4b176e122c812186641d452d1b36f88ffa8350e2
-
 const introQuestion = {
- validate: function(input) {
+  validate: function(input) {
 
     // Declare function as asynchronous, and save the done callback
-    var done = this.async();
+    var done = this.async()
 
     // Do async stuff
     setTimeout(function() {
