@@ -13,15 +13,16 @@ const sockets = []
 io.on('connection', (socket) => {
   sockets.push(socket)
   const userAddress = R.replace(/\:\:[a-z]+\:/g, '', socket.handshake.address)
-
   var currentUser
 
   socket.on('newuser', (data) => {
     users.addUser(data)
     currentUser = data.username
-    broadcast('message', currentUser +' connected'.green)
+    console.log(currentUser + ' connected'.green)
+    broadcast('message', currentUser + ' connected'.green)
   })
   socket.on('message', (data) => {
+    chatLog.push(data)
     broadcast('message', data)
   })
   socket.on('disconnect', () => {
