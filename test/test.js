@@ -50,8 +50,7 @@ describe('get user by username', () => {
   })
   context('return undefined if user does not exsist', () => {
     it('returns undefined if user does not exsist', () => {
-        userfunctions.getUserByUserName('wakaflocka')
-        expect(storage.read().users[0].username).to.equal('wakaflocka')
+        expect(userFunctions.getUserByUserName('wakaflocka')).to.equal(undefined)
     })
   })
 })
