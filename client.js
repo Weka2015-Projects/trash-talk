@@ -1,6 +1,6 @@
 'use strict'
 const io = require('socket.io-client')
-const socket = io.connect('http://192.168.1.49:3000/')
+const socket = io.connect('http://192.168.1.49:3000')
 const R = require('ramda')
 const inquirer = require('inquirer')
 const chatCommands = require('./lib/chatCommands').chatCommands
@@ -48,7 +48,7 @@ const parseCommand = (command) => {
 }
 
 const findCommand = (command) => {
-  if (command[0] === 'listCommands') {
+  if (command[0] === 'help') {
     R.forEach(printDescription , R.keys(chatCommands))
   } else if (command[0] === 'changeColor') {
     textColor = chatCommands[command[0]].action(command[1])
