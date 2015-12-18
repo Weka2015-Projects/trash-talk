@@ -25,22 +25,15 @@ describe('User creation test', () => {
 })
 
 describe('deletes user object', () => {
-<<<<<<< HEAD
-  beforeEach(() => {overWriteDb('delete') })
-  context('deletes if user object exsists', () => {
-    it('it deletes', () => {
-      userFunctions.deleteUser('aaron')
-=======
   beforeEach(() => {overWriteDb('delete-katie') })
   context('deletes if user object exists', () => {
     it('deletes katie', () => {
       userFunctions.deleteUser('katie')
->>>>>>> 79de21277b7e336aaa5d29d6a2990426bbf7b1fd
       expect(storage.read().users.length).to.equal(0)
     })
   })
   context('does not delete if it user object exsists', () => {
-    xit('stays the same', () => {
+    it('stays the same', () => {
       userFunctions.deleteUser('bobo')
       expect(storage.read().users.length).to.equal(1)
     })
@@ -48,17 +41,17 @@ describe('deletes user object', () => {
 })
 
 describe('get user by username', () => {
-  beforeEach(() => {overWriteDb('empty') })
+  beforeEach(() => {overWriteDb('bobo') })
   context('find user if username exsists', () => {
-    xit('finds user', () => {
-      userFunctions.getUserByUserName('bobo')
-      expect(storage.read().users.length).to.equal(1)
+    it('finds user', () => {
+      userFunctions.getUserByUserName('aaron')
+      expect(storage.read().users[1].username).to.equal('aaron')
     })
   })
   context('return undefined if user does not exsist', () => {
-    xit('returns undefined if user does not exsist', () => {
+    it('returns undefined if user does not exsist', () => {
         userfunctions.getUserByUserName('wakaflocka')
-        expect(storage.read().users.length).to.equal(0)
+        expect(storage.read().users[0].username).to.equal('wakaflocka')
     })
   })
 })
@@ -68,7 +61,7 @@ describe('patch object', () => {
   context('change object if username exists', () => {
     xit('object changed if object exists', () => {
       userFunctions.changeUserName('bobo', 'babe')
-      expect(storage.read().users.length).to.equal(1)
+      expect(storage.read().users[0].username).to.equal('bobo')
       })
     })
     context('does not change if object does not exist', () => {
