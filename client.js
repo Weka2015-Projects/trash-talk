@@ -3,7 +3,7 @@ const io = require('socket.io-client')
 const socket = io.connect('http://192.168.1.49:3000')
 const R = require('ramda')
 const inquirer = require('inquirer')
-
+const chatCommands = require('./lib/chatCommands').chatCommands
 
 var userName
 const myLastMessages = []
@@ -39,8 +39,21 @@ const startChatInput = () => {
 }
 
 const parseCommand = (command) => {
-
+  command = R.replace('/', '', command)
+  command = R.replace('\n', '', command).split(' ')
+  findCommand(command)
 }
+
+const findCommand = (command) => {
+  if (command === 'listCommands') {
+    console.log(R.keys(chatCommands))
+  }
+  else {
+    const commands = command.split(' ')
+    console.log(chatCommands[commands[0]]())
+  }
+}
+
 
 const introQuestion = {
   validate: function(input) {

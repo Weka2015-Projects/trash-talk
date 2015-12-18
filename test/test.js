@@ -25,10 +25,17 @@ describe('User creation test', () => {
 })
 
 describe('deletes user object', () => {
+<<<<<<< HEAD
   beforeEach(() => {overWriteDb('delete') })
   context('deletes if user object exsists', () => {
     it('it deletes', () => {
       userFunctions.deleteUser('aaron')
+=======
+  beforeEach(() => {overWriteDb('delete-katie') })
+  context('deletes if user object exists', () => {
+    it('deletes katie', () => {
+      userFunctions.deleteUser('katie')
+>>>>>>> 79de21277b7e336aaa5d29d6a2990426bbf7b1fd
       expect(storage.read().users.length).to.equal(0)
     })
   })
