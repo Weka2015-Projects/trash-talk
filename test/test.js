@@ -56,19 +56,32 @@ describe('get user by username', () => {
   })
 })
 
-describe('patch object if exsists', () => {
+describe('patch object', () => {
   beforeEach(() => {overWriteDb('empty') })
-  context('change object if a valid change', () => {
-    xit('object changed if object exsists', () => {
-      userFunctions.changeUserName('bobo')
-      userFunctions.changeUserName('babe')
+  context('change object if username exists', () => {
+    xit('object changed if object exists', () => {
+      userFunctions.changeUserName('bobo', 'babe')
       expect(storage.read().users.length).to.equal(1)
       })
     })
-    context('does not change if object does not exsist', () => {
-      xit('returns undefined if object does not exsist', () => {
+    context('does not change if object does not exist', () => {
+      xit('returns undefined if object does not exist', () => {
         userFunctions.changeUserName('bambie')
         expect(storage.read().users.length).to.equal(0)
+    })
+  })
+})
+
+describe('', () => {
+  beforeEach(() => {overWriteDb('empty') })
+  context('', () => {
+    xit('', () => {
+      userFunctions
+    })
+  })
+  context('', () => {
+    xit('', () => {
+      userFunctions
     })
   })
 })
