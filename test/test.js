@@ -25,10 +25,10 @@ describe('User creation test', () => {
 })
 
 describe('deletes user object', () => {
-  beforeEach(() => {overWriteDb('empty') })
-  context('deletes if user object exsists', () => {
-    it('does not add second object', () => {
-      userFunctions.deleteUser('bean')
+  beforeEach(() => {overWriteDb('delete-katie') })
+  context('deletes if user object exists', () => {
+    it('deletes katie', () => {
+      userFunctions.deleteUser('katie')
       expect(storage.read().users.length).to.equal(0)
     })
   })
