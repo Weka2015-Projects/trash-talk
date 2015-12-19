@@ -19,7 +19,7 @@ socket.on('connect', () => {
     }
   })
   socket.on('commandRes', (data) => {
-    console.log(data)
+    executeCommand(data)
   })
 })
 
@@ -52,6 +52,25 @@ const parseCommand = (command) => {
   command = R.replace('/', '', command)
   command = R.replace('\n', '', command).split(' ')
   socket.emit('command', command)
+}
+
+const executeCommand = (command) => {
+  switch(command[0]) {
+    case "getAllUsers":
+      R.forEach((content) => {
+        console.log(content)
+      },command[1])
+      break
+    case "getUser":
+      console.log(command[1])
+      break
+    case "changeColor":
+      textColor = command[1]
+      break
+    case "clearColor":
+      textColor = command[1]
+      break
+  }
 }
 
 const introQuestion = {

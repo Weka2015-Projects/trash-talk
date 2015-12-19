@@ -19,12 +19,14 @@ describe('Chat commands', () => {
       expect(command.find(['changeColor', 'red'])[1]).to.equal('red')
     })
   })
-  describe('Gets user bobo', () => {
-    xit('Gets all users', () => {
-      expect(command.find(['getAllUsers']).length).to.equal(3)
+  describe('Gets all', () => {
+    it('Returns all users', () => {
+      expect(command.find(['getAllUsers'])[1].length).to.equal(3)
     })
   })
-  describe('Gets all users', () => {
-
+  describe('Gets user', () => {
+    it('Returns correct user', () => {
+      expect(command.find(['getUser', 'bobo'])[1].username).to.equal('bobo')
+    })
   })
 })
