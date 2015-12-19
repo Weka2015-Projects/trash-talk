@@ -3,7 +3,6 @@ const io = require('socket.io-client')
 const socket = io.connect('http://10.6.0.226:3000')
 const R = require('ramda')
 const inquirer = require('inquirer')
-const chatCommands = require('./lib/chatCommands').chatCommands
 const colors = require('colors')
 
 var userName
