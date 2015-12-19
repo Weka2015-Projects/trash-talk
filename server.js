@@ -5,6 +5,7 @@ const emoji = require('emoji-and-emoticons')
 const users = require('./lib/users')
 const server = require('http').createServer()
 const io = require('socket.io')(server)
+const commands = require('./lib/chatCommands')
 
 
 const chatLog = []
@@ -14,7 +15,6 @@ io.on('connection', (socket) => {
   sockets.push(socket)
   const userAddress = R.replace(/\:\:[a-z]+\:/g, '', socket.handshake.address)
   var currentUser
-
   socket.on('newuser', (data) => {
     users.addUser(data)
     currentUser = data.username
@@ -29,6 +29,9 @@ io.on('connection', (socket) => {
     broadcast('message', currentUser +' disconnected'.red)
     console.log(currentUser + ' disconnected'.red)
   })
+  socket.on('command', (data) => {
+    socket.emit('commandRes', (commands.find(data)))
+  })
 })
 
 const broadcast = (event, data) => {
@@ -36,7 +39,6 @@ const broadcast = (event, data) => {
     socket.emit(event, data)
   })
 }
-
 
 server.listen(3000)
 console.log('server listening on port 3000')

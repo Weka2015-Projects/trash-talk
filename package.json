@@ -24,6 +24,7 @@
     "color": "^0.10.1",
     "colors": "^1.1.2",
     "emoji-and-emoticons": "0.0.5",
+    "fs-extra": "^0.26.3",
     "inquirer": "^0.11.0",
     "mocha": "^2.3.4",
     "ramda": "^0.18.0",
