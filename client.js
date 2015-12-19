@@ -56,6 +56,11 @@ const parseCommand = (command) => {
 
 const executeCommand = (command) => {
   switch(command[0]) {
+    case "help":
+      R.forEach((content) => {
+        console.log(content[0].green, content[1])
+      },command[1])
+      break
     case "getAllUsers":
       R.forEach((content) => {
         console.log(content)

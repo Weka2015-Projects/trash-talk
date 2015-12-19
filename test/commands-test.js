@@ -11,7 +11,7 @@ describe('Chat commands', () => {
   beforeEach(() => {overWriteDb('bobo') })
   describe('Help / Command List', () => {
     it('loads list of commands with 3 entries', () => {
-      expect(command.find(['help']).length).to.equal(3)
+      expect(command.find(['help'])[1].length).to.equal(4)
     })
   })
   describe('Changle Color', () => {
