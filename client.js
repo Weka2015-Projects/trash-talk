@@ -1,6 +1,6 @@
 'use strict'
 const io = require('socket.io-client')
-const socket = io.connect('http://10.6.0.226:3000')
+const socket = io.connect('http://192.168.1.35:3000')
 const R = require('ramda')
 const inquirer = require('inquirer')
 const colors = require('colors')
@@ -51,6 +51,12 @@ const startChatInput = () => {
 const parseCommand = (command) => {
   command = R.replace('/', '', command)
   command = R.replace('\n', '', command).split(' ')
+  const commandArgs = []
+  for (var i = 1; i < command.length; i++) {
+    commandArgs.push(command[i])
+  }
+  command = [command[0], commandArgs]
+  console.log(command)
   socket.emit('command', command)
 }
 
@@ -74,6 +80,9 @@ const executeCommand = (command) => {
       break
     case "clearColor":
       textColor = command[1]
+      break
+    case "whisper":
+      socket.emit('whisper', command[1])
       break
   }
 }

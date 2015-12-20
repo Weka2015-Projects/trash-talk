@@ -10,27 +10,35 @@ const commands = require('./lib/chatCommands')
 
 const chatLog = []
 const sockets = []
+const currentUsers = []
 
 io.on('connection', (socket) => {
   sockets.push(socket)
   const userAddress = R.replace(/\:\:[a-z]+\:/g, '', socket.handshake.address)
-  var currentUser
   socket.on('newuser', (data) => {
     users.addUser(data)
-    currentUser = data.username
-    console.log(currentUser + ' connected'.green)
-    broadcast('message', currentUser + ' connected'.green)
+    socket.currentUser = data.username
+    currentUsers.push(socket.currentUser)
+    console.log(currentUsers)
+    console.log(socket.currentUser + ' connected'.green)
+    broadcast('message', socket.currentUser + ' connected'.green)
   })
   socket.on('message', (data) => {
     chatLog.push(data)
     broadcast('message', data)
   })
   socket.on('disconnect', () => {
-    broadcast('message', currentUser +' disconnected'.red)
-    console.log(currentUser + ' disconnected'.red)
+    R.remove(currentUsers.indexOf(socket.currentUser), 1, currentUsers)
+    broadcast('message', socket.currentUser +' disconnected'.red)
+    console.log(socket.currentUser + ' disconnected'.red)
   })
   socket.on('command', (data) => {
     socket.emit('commandRes', (commands.find(data)))
+  })
+  socket.on('whisper', (data) => {
+    if(whisper('message', data, socket.currentUser)){
+      socket.emit('message', 'Invalid User')
+    }
   })
 })
 
@@ -38,6 +46,16 @@ const broadcast = (event, data) => {
   sockets.forEach((socket) => {
     socket.emit(event, data)
   })
+}
+
+const whisper = (event, data, user) => {
+  sockets.forEach((socket) => {
+    if(socket.currentUser === data[0]){
+      socket.emit(event, 'Whisper from ' + user + ': '+ data.slice(1, data.length).join(' ').green)
+      return true
+    }
+  })
+  return false
 }
 
 server.listen(3000)
