@@ -11,12 +11,12 @@ describe('Chat commands', () => {
   beforeEach(() => {overWriteDb('bobo') })
   describe('Help / Command List', () => {
     it('loads list of commands with 3 entries', () => {
-      expect(command.find(['help'])[1].length).to.equal(4)
+      expect(command.find(['help'])[1].length).to.equal(5)
     })
   })
   describe('Changle Color', () => {
     it('Returns the color that the user selected', () => {
-      expect(command.find(['changeColor', 'red'])[1]).to.equal('red')
+      expect(command.find(['changeColor', ['red']])[1]).to.equal('red')
     })
   })
   describe('Gets all', () => {
@@ -26,7 +26,7 @@ describe('Chat commands', () => {
   })
   describe('Gets user', () => {
     it('Returns correct user', () => {
-      expect(command.find(['getUser', 'bobo'])[1].username).to.equal('bobo')
+      expect(command.find(['getUser', ['bobo']])[1].username).to.equal('bobo')
     })
   })
 })
