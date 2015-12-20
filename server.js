@@ -10,7 +10,7 @@ const commands = require('./lib/chatCommands')
 
 const chatLog = []
 const sockets = []
-const currentUsers = []
+let currentUsers = []
 
 io.on('connection', (socket) => {
   sockets.push(socket)
@@ -28,7 +28,7 @@ io.on('connection', (socket) => {
     broadcast('message', data)
   })
   socket.on('disconnect', () => {
-    R.remove(currentUsers.indexOf(socket.currentUser), 1, currentUsers)
+    currentUsers = R.remove(currentUsers.indexOf(socket.currentUser), 1, currentUsers)
     broadcast('message', socket.currentUser +' disconnected'.red)
     console.log(socket.currentUser + ' disconnected'.red)
   })
@@ -51,7 +51,7 @@ const broadcast = (event, data) => {
 const whisper = (event, data, user) => {
   sockets.forEach((socket) => {
     if(socket.currentUser === data[0]){
-      socket.emit(event, 'Whisper from ' + user + ': '+ data.slice(1, data.length).join(' ').green)
+      socket.emit(event, ('Whisper from ' + user + ': '+ data.slice(1, data.length).join(' ')).blue)
       return true
     }
   })
