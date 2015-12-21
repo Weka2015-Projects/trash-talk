@@ -1,1 +1,1 @@
-{"users":[{"username":"aaron"}]}
+{"users":[{"username":"aaron","role":"admin"},{"username":"john","role":"user"},{"username":"objisweird","role":"user"}]}

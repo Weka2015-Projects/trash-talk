@@ -14,13 +14,12 @@ let currentUsers = []
 
 io.on('connection', (socket) => {
   sockets.push(socket)
-
   socket.on('newuser', (data) => {
     users.addUser(data)
-    socket.currentUser = data.username
+    socket.currentUser = data
     currentUsers.push(socket.currentUser)
-    console.log(socket.currentUser + ' connected'.green)
-    broadcast('message', socket.currentUser + ' connected'.green)
+    console.log(socket.currentUser.username + ' connected'.green)
+    broadcast('message', socket.currentUser.username + ' connected'.green)
   })
 
   socket.on('message', (data) => {
@@ -42,7 +41,6 @@ io.on('connection', (socket) => {
       socket.emit('message', 'Invalid User')
     }
   })
-
 })
 
 const broadcast = (event, data) => {
@@ -53,8 +51,11 @@ const broadcast = (event, data) => {
 
 const whisper = (event, data, user) => {
   sockets.forEach((socket) => {
-    if(socket.currentUser === data[0]){
-      socket.emit(event, ('Whisper from ' + user + ': '+ data.slice(1, data.length).join(' ')).blue)
+    if(socket.currentUser && socket.currentUser.username === data[0]){
+      socket.emit(event,
+         ('Whisper from ' + user.username +
+          ': ' +
+          data.slice(1, data.length).join(' ')).blue)
       return true
     }
   })
