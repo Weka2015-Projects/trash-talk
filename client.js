@@ -22,6 +22,9 @@ socket.on('connect', () => {
   socket.on('commandRes', (data) => {
     client.executeCommand(data, socket)
   })
+  socket.on('disconnect', (data) => {
+    console.log('You\'ve been Disconnected'.red)
+  })
 })
 
 
