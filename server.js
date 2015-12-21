@@ -14,15 +14,15 @@ let currentUsers = []
 
 io.on('connection', (socket) => {
   sockets.push(socket)
-  const userAddress = R.replace(/\:\:[a-z]+\:/g, '', socket.handshake.address)
+
   socket.on('newuser', (data) => {
     users.addUser(data)
     socket.currentUser = data.username
     currentUsers.push(socket.currentUser)
-    console.log(currentUsers)
     console.log(socket.currentUser + ' connected'.green)
     broadcast('message', socket.currentUser + ' connected'.green)
   })
+
   socket.on('message', (data) => {
     chatLog.push(data)
     broadcast('message', data)
@@ -32,14 +32,17 @@ io.on('connection', (socket) => {
     broadcast('message', socket.currentUser +' disconnected'.red)
     console.log(socket.currentUser + ' disconnected'.red)
   })
+
   socket.on('command', (data) => {
     socket.emit('commandRes', (commands.find(data)))
   })
+
   socket.on('whisper', (data) => {
     if(whisper('message', data, socket.currentUser)){
       socket.emit('message', 'Invalid User')
     }
   })
+
 })
 
 const broadcast = (event, data) => {
