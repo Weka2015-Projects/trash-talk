@@ -6,18 +6,22 @@ const inquirer = require('inquirer')
 const colors = require('colors')
 const client = require('./lib/clientFunctions')
 
-var userName
+var currentUser
 var textColor
+var existingUsers
 const myLastMessages = []
+
 
 
 socket.on('connect', () => {
   inquirer.prompt([introQuestion], (answers) => {
     socket.emit('newuser', answers)
-    userName = answers.username
-    if (userName) {
+    if (answers.username) {
       startChatInput()
     }
+  })
+  socket.on('registeruser', (data) => {
+    currentUser = data
   })
   socket.on('commandRes', (data) => {
     client.executeCommand(data, socket)
@@ -38,10 +42,10 @@ const startChatInput = () => {
   process.stdin.setEncoding('utf8')
   process.stdin.on('data', (text) => {
     if (text.split('')[0] === '/') {
-      client.parseCommand(text, socket)
+      client.parseCommand(text, socket, currentUser)
     } else {
       text = R.replace(/\n/, '', text)
-      text = `${userName}: ${text}`
+      text = `${currentUser.username}: ${text}`
       myLastMessages.push(text)
       if(textColor) {
         socket.emit('message', colors[textColor](text))

@@ -20,6 +20,7 @@ io.on('connection', (socket) => {
     currentUsers.push(socket.currentUser)
     console.log(socket.currentUser.username + ' connected'.green)
     broadcast('message', socket.currentUser.username + ' connected'.green)
+    socket.emit('registeruser', data)
   })
 
   socket.on('message', (data) => {

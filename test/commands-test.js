@@ -21,12 +21,12 @@ describe('Chat commands', () => {
   })
   describe('Gets all', () => {
     it('Returns all users', () => {
-      expect(command.find(['getAllUsers'])[1].length).to.equal(3)
+      expect(command.find(['allusers'])[1].length).to.equal(3)
     })
   })
   describe('Gets user', () => {
     it('Returns correct user', () => {
-      expect(command.find(['getUser', ['bobo']])[1].username).to.equal('bobo')
+      expect(command.find(['whois', ['bobo']])[1].username).to.equal('bobo')
     })
   })
 })
