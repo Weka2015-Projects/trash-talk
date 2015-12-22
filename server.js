@@ -13,6 +13,7 @@ const sockets = []
 let currentUsers = []
 
 io.on('connection', (socket) => {
+  socket.emit('channel', currentUsers)
   sockets.push(socket)
   socket.on('newuser', (data) => {
     users.addUser(data)
@@ -21,6 +22,7 @@ io.on('connection', (socket) => {
     console.log(socket.currentUser.username + ' connected'.green)
     broadcast('message', socket.currentUser.username + ' connected'.green)
     socket.emit('registeruser', data)
+    broadcast('channel', currentUsers)
   })
 
   socket.on('message', (data) => {

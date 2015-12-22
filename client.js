@@ -8,20 +8,19 @@ const client = require('./lib/clientFunctions')
 
 var currentUser
 var textColor
-var existingUsers
+var existingUsers = []
 const myLastMessages = []
 
 
 
 socket.on('connect', () => {
-  inquirer.prompt([introQuestion], (answers) => {
-    socket.emit('newuser', answers)
-    if (answers.username) {
-      startChatInput()
-    }
-  })
+  onJoin()
+
   socket.on('registeruser', (data) => {
     currentUser = data
+  })
+  socket.on('channel', (data) => {
+    existingUsers = data
   })
   socket.on('commandRes', (data) => {
     client.executeCommand(data, socket)
@@ -29,7 +28,22 @@ socket.on('connect', () => {
   socket.on('disconnect', (data) => {
     console.log('You\'ve been Disconnected'.red)
   })
+
 })
+
+
+const onJoin = () => {
+  inquirer.prompt([introQuestion], (answers) => {
+    if (R.filter((user) => user.username === answers.username, existingUsers).length > 0) {
+      console.log("Name taken, pick a new one".red)
+      return onJoin()
+    }
+    else {
+      socket.emit('newuser', answers)
+      startChatInput()
+    }
+  })
+}
 
 
 const startChatInput = () => {
@@ -67,7 +81,7 @@ const introQuestion = {
     setTimeout(function() {
       if (typeof input !== "string") {
         // Pass the return value in the done callback
-        done("Provide a string dude!");
+        done("Try again scrub");
         return;
       }
       // Pass the return value in the done callback
